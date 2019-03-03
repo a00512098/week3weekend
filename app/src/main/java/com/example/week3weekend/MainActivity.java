@@ -18,6 +18,8 @@ import com.example.week3weekend.fragments.ViewPagerAdapter;
 import com.example.week3weekend.model.DBHelper;
 import com.example.week3weekend.model.Employee;
 
+import static com.example.week3weekend.fragments.UpdateEmployeeFragment.USER_DELETED;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
         InsertEmployeeFragment.OnFragmentInteractionListener,
         UpdateEmployeeFragment.OnFragmentInteractionListener,
@@ -118,8 +120,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
-    public void onUpdateEmployeeFragmentInteraction() {
-        Toast.makeText(this, "Employee Updated Successfully", Toast.LENGTH_SHORT).show();
+    public void onUpdateEmployeeFragmentInteraction(int resultTag) {
+        String message = resultTag == USER_DELETED ? "Employee Successfully Deleted" : "Employee Successfully Updated";
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         resetIndexAndUpdateList();
     }
 

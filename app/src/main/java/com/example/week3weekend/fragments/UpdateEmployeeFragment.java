@@ -1,6 +1,8 @@
 package com.example.week3weekend.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +23,15 @@ import com.example.week3weekend.R;
 import com.example.week3weekend.model.DBHelper;
 import com.example.week3weekend.model.Employee;
 
-public class UpdateEmployeeFragment extends Fragment implements View.OnClickListener, TextWatcher {
+public class UpdateEmployeeFragment extends Fragment implements View.OnClickListener, TextWatcher, DialogInterface.OnClickListener {
     private OnFragmentInteractionListener mListener;
     private DBHelper database;
     private EditText employeeId, name, birthDate, wage, hireDate, imageUrl;
-    private Button updateEmployeeBtn, findEmployeeBtn;
+    private Button updateEmployeeBtn, findEmployeeBtn, deleteEmployeeBtn;
     private ConstraintLayout fieldsToUpdate;
+
+    public final static int USER_DELETED = 1;
+    public final static int USER_UPDATED = 2;
 
     public UpdateEmployeeFragment() {
     }
@@ -61,6 +67,8 @@ public class UpdateEmployeeFragment extends Fragment implements View.OnClickList
         updateEmployeeBtn.setOnClickListener(this);
         findEmployeeBtn = view.findViewById(R.id.findEmployee);
         findEmployeeBtn.setOnClickListener(this);
+        deleteEmployeeBtn = view.findViewById(R.id.deleteEmployeeBtn);
+        deleteEmployeeBtn.setOnClickListener(this);
     }
 
     @Override
@@ -89,7 +97,48 @@ public class UpdateEmployeeFragment extends Fragment implements View.OnClickList
             case R.id.updateEmployeeBtn:
                 updateEmployeeInfo();
                 break;
+            case R.id.deleteEmployeeBtn:
+                deleteEmployeeWithId();
+                break;
         }
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        switch (which) {
+            case DialogInterface.BUTTON_POSITIVE:
+                deleteEmployee();
+                break;
+            case DialogInterface.BUTTON_NEGATIVE:
+                break;
+        }
+    }
+
+    private void deleteEmployee() {
+        if (!isAnyOtherFieldEmpty()) {
+            int id = Integer.parseInt(employeeId.getText().toString());
+            database.deleteUserFromDBById(id);
+            if (mListener != null) {
+                clearAllData();
+                mListener.onUpdateEmployeeFragmentInteraction(USER_DELETED);
+            }
+        }
+    }
+
+    private void deleteEmployeeWithId() {
+        askForConfirmation();
+    }
+
+    private void askForConfirmation() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setMessage(String.format(getString(R.string.confirmation_s), employeeId.getText().toString()));
+        dialogBuilder.setTitle("Delete User");
+
+        dialogBuilder.setPositiveButton(R.string.delete, this);
+        dialogBuilder.setNegativeButton(R.string.cancel, this);
+
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 
     private void updateEmployeeInfo() {
@@ -105,7 +154,7 @@ public class UpdateEmployeeFragment extends Fragment implements View.OnClickList
             database.updateEmployeeInDB(employee);
             if (mListener != null) {
                 clearAllData();
-                mListener.onUpdateEmployeeFragmentInteraction();
+                mListener.onUpdateEmployeeFragmentInteraction(USER_UPDATED);
             }
         } else {
             Toast.makeText(getContext(), "All Fields Are Mandatory", Toast.LENGTH_SHORT).show();
@@ -188,6 +237,6 @@ public class UpdateEmployeeFragment extends Fragment implements View.OnClickList
 
     public interface OnFragmentInteractionListener {
 
-        void onUpdateEmployeeFragmentInteraction();
+        void onUpdateEmployeeFragmentInteraction(int resulTag);
     }
 }

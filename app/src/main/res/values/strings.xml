@@ -14,4 +14,7 @@
     <string name="birthday_s">Birthday: %s</string>
     <string name="wage_f">Wage: $%.2f</string>
     <string name="hire_date_s">Hire date: %s</string>
+    <string name="confirmation_s">Are you sure that you want to delete the employee with ID: %s\nThis operation cannot be undone</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>

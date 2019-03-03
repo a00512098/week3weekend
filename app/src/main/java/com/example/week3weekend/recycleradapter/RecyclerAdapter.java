@@ -39,7 +39,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewHolder.wage.setText(String.format(context.getResources().getString(R.string.wage_f), adapterList.get(i).getWage()));
         viewHolder.hiredate.setText(String.format(context.getResources().getString(R.string.hire_date_s), adapterList.get(i).getHireDate()));
 
-        Glide.with(context).load(adapterList.get(i).getImageUrl()).centerCrop().into(viewHolder.image);
+        Glide.with(context).load(adapterList.get(i).getImageUrl()).placeholder(R.drawable.default_avatar).centerCrop().into(viewHolder.image);
     }
 
     @Override
