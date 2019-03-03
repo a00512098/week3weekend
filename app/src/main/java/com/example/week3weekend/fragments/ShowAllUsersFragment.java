@@ -77,9 +77,4 @@ public class ShowAllUsersFragment extends Fragment {
         recyclerAdapter.updateList(employees);
         recyclerAdapter.update();
     }
-
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onInsertEmployeeFragmentInteraction(Uri uri);
-//    }
 }

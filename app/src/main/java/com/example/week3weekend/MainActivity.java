@@ -13,21 +13,28 @@ import android.widget.Toast;
 
 import com.example.week3weekend.fragments.InsertEmployeeFragment;
 import com.example.week3weekend.fragments.ShowAllUsersFragment;
+import com.example.week3weekend.fragments.UpdateEmployeeFragment;
 import com.example.week3weekend.fragments.ViewPagerAdapter;
 import com.example.week3weekend.model.DBHelper;
 import com.example.week3weekend.model.Employee;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
         InsertEmployeeFragment.OnFragmentInteractionListener,
+        UpdateEmployeeFragment.OnFragmentInteractionListener,
         ViewPager.OnPageChangeListener {
 
-    private DBHelper database;
+    // Navigation
     private ViewPager viewPager;
     private BottomNavigationView navigation;
     private ViewPagerAdapter pagerAdapter;
+
+    // Fragments
     private ShowAllUsersFragment fragment1;
     private InsertEmployeeFragment fragment2;
+    private UpdateEmployeeFragment fragment3;
 
+    // Storage
+    private DBHelper database;
     private SharedPreferences preferences;
     private static final String PREFERENCES = "PREFERENCES";
     private static final String DB_EMPTY = "DB_EMPTY";
@@ -75,10 +82,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         fragment1.attachListOfEmployees(database.getAllEmployeesFromDB());
         fragment2 = InsertEmployeeFragment.newInstance();
         fragment2.attachDatabase(database);
+        fragment3 = UpdateEmployeeFragment.newInstance();
+        fragment3.attachDatabase(database);
 
-        // set adapter
+        // add fragments
         pagerAdapter.addFragment(fragment1);
         pagerAdapter.addFragment(fragment2);
+        pagerAdapter.addFragment(fragment3);
+
+        // set adapter
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this); //this syncs the bottom navbar with the viewpager
     }
@@ -93,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 viewPager.setCurrentItem(1);
                 return true;
             case R.id.navigation_edit:
+                viewPager.setCurrentItem(2);
                 return true;
         }
         return false;
@@ -101,11 +114,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onInsertEmployeeFragmentInteraction() {
         Toast.makeText(this, "Employee Created Successfully", Toast.LENGTH_SHORT).show();
+        resetIndexAndUpdateList();
+    }
+
+    @Override
+    public void onUpdateEmployeeFragmentInteraction() {
+        Toast.makeText(this, "Employee Updated Successfully", Toast.LENGTH_SHORT).show();
+        resetIndexAndUpdateList();
+    }
+
+    private void resetIndexAndUpdateList() {
         viewPager.setCurrentItem(0);
         fragment1.attachListOfEmployees(database.getAllEmployeesFromDB());
         fragment1.updateList();
     }
 
+    // Let the user use the back key to navigate through fragments. If in last fragment, use backstack instead
     @Override
     public void onBackPressed() {
         if (viewPager.getCurrentItem() == 0) {

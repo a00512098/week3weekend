@@ -8,19 +8,19 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toStartOf="@+id/id"
+        app:layout_constraintEnd_toStartOf="@+id/employeeId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/employeeId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,13 +39,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/name_s"
-        app:layout_constraintBottom_toTopOf="@+id/birthdate"
+        app:layout_constraintBottom_toTopOf="@+id/birthDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/id"
-        app:layout_constraintTop_toBottomOf="@+id/id" />
+        app:layout_constraintStart_toStartOf="@+id/employeeId"
+        app:layout_constraintTop_toBottomOf="@+id/employeeId" />
 
     <TextView
-        android:id="@+id/birthdate"
+        android:id="@+id/birthDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -53,7 +53,7 @@
         android:text="@string/birthday_s"
         app:layout_constraintBottom_toTopOf="@+id/wage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/id"
+        app:layout_constraintStart_toStartOf="@+id/employeeId"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
@@ -63,20 +63,20 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/wage_f"
-        app:layout_constraintBottom_toTopOf="@+id/hiredate"
+        app:layout_constraintBottom_toTopOf="@+id/hireDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/id"
-        app:layout_constraintTop_toBottomOf="@+id/birthdate" />
+        app:layout_constraintStart_toStartOf="@+id/employeeId"
+        app:layout_constraintTop_toBottomOf="@+id/birthDate" />
 
     <TextView
-        android:id="@+id/hiredate"
+        android:id="@+id/hireDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/hire_date_s"
         app:layout_constraintBottom_toBottomOf="@+id/image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/id"
+        app:layout_constraintStart_toStartOf="@+id/employeeId"
         app:layout_constraintTop_toBottomOf="@+id/wage" />
 
     <View

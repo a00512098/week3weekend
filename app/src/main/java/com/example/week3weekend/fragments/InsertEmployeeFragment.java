@@ -46,7 +46,7 @@ public class InsertEmployeeFragment extends Fragment implements View.OnClickList
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        button = view.findViewById(R.id.createUserBtn);
+        button = view.findViewById(R.id.insertEmployeeBtn);
         button.setOnClickListener(this);
         name = view.findViewById(R.id.name);
         birthDate = view.findViewById(R.id.birthDate);
@@ -82,11 +82,20 @@ public class InsertEmployeeFragment extends Fragment implements View.OnClickList
             String imgStr = imageUrl.getText().toString();
             database.insertEmployeeIntoDB(new Employee(nameStr, birthStr, wageStr, hireStr, imgStr));
             if (mListener != null) {
+                clearAllData();
                 mListener.onInsertEmployeeFragmentInteraction();
             }
         } else {
             Toast.makeText(getContext(), "First Fill All The Fields", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void clearAllData() {
+        name.setText("");
+        birthDate.setText("");
+        wage.setText("");
+        hireDate.setText("");
+        imageUrl.setText("");
     }
 
     private boolean isAnyFieldEmpty() {

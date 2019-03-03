@@ -61,10 +61,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
-            id = itemView.findViewById(R.id.id);
-            birthdate = itemView.findViewById(R.id.birthdate);
+            id = itemView.findViewById(R.id.employeeId);
+            birthdate = itemView.findViewById(R.id.birthDate);
             wage = itemView.findViewById(R.id.wage);
-            hiredate = itemView.findViewById(R.id.hiredate);
+            hiredate = itemView.findViewById(R.id.hireDate);
             image = itemView.findViewById(R.id.image);
         }
     }
