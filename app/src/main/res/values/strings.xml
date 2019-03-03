@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Week 3 Weekend</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_all_employees">All Employees</string>
+    <string name="title_insert_employee">New Employee</string>
+    <string name="title_edit_employee">Edit Employee</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="id_d">ID: %d</string>
+    <string name="name_s">Name: %s</string>
+    <string name="birthday_s">Birthday: %s</string>
+    <string name="wage_f">Wage: $%.2f</string>
+    <string name="hire_date_s">Hire date: %s</string>
+</resources>
